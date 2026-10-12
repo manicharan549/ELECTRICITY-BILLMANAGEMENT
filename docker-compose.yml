@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: electricity-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://manicharan549_db_user:manicharan123@cluster0.ym5laon.mongodb.net/electricity_billing_db?retryWrites=true&w=majority&appName=Cluster0
+      - APP_CORS_ALLOWED_ORIGINS=http://localhost,http://localhost:3000,http://localhost:80
+      - SERVER_PORT=8080
+    networks:
+      - electricity-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: electricity-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - electricity-net
+
+networks:
+  electricity-net:
+    driver: bridge
