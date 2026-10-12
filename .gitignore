@@ -1,0 +1,16 @@
+# Git ignore rules
+target/
+**/target/
+dist/
+**/dist/
+node_modules/
+**/node_modules/
+git-portable.exe
+git_bin/
+*.log
+test_login.json
+.vscode/
+.idea/
+*.class
+.DS_Store
+Thumbs.db
