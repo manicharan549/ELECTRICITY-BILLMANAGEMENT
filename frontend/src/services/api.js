@@ -1,7 +1,15 @@
 import axios from 'axios';
 
+let rawBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://electricity-billmanagement.onrender.com/api/v1';
+
+// Automatically normalize: strip trailing slash and append /api/v1 if omitted
+rawBaseUrl = rawBaseUrl.replace(/\/+$/, '');
+if (!rawBaseUrl.endsWith('/api/v1')) {
+  rawBaseUrl = `${rawBaseUrl}/api/v1`;
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
+  baseURL: rawBaseUrl,
   headers: {
     'Content-Type': 'application/json',
   },
